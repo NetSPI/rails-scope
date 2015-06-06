@@ -3,6 +3,7 @@ require 'tmpdir'
 require 'security/brakeman'
 require 'complexity/flog'
 require 'complexity/flay'
+require 'count/code_count'
 
 class RailsScope
   
@@ -26,7 +27,7 @@ class RailsScope
   end
   
   def self.klasses
-    %w{ Brakeman Flog Flay }
+    %w{ Brakeman Flog Flay CodeCount }
   end
   
   def self.separator(tool_name='')
