@@ -1,4 +1,5 @@
 require 'optparse'
+require 'tmpdir'
 require 'security/brakeman'
 
 class RailsScope
@@ -23,8 +24,13 @@ class RailsScope
   end
   
   def self.start
-    $path = @options[:path] ? @options[:path] : Dir.pwd
+    $path   = @options[:path] ? @options[:path] : Dir.pwd
+    $output = @options[:output] ? @options[:output] : Dir.pwd
+    $tmpdir = Dir.mktmpdir
     Brakeman.kick_off
+  ensure 
+    puts $tmpdir
+    #FileUtils.remove_entry dir
   end
   
 end
