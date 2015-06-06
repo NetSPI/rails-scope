@@ -29,7 +29,7 @@ class RailsScope
   end
   
   def self.separator(tool_name='')
-    sep = "\n"
+    sep = tool_name == klasses.first ? "" : "\n"
     sep << "=" * 15
     sep << tool_name
     sep << "=" * 15
