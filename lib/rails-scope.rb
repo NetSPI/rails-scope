@@ -25,15 +25,19 @@ class RailsScope
   
   def self.start
     $path   = @options[:path] ? @options[:path] : Dir.pwd
-    $output = @options[:output] ? @options[:output] : Dir.pwd
+    $output_path = @options[:output] ? @options[:output] : Dir.pwd
+    $output_file = File.new("#{$output_path}/scope.nv", "w")
     $tmpdir = Dir.mktmpdir
     Brakeman.kick_off
   ensure 
     clean_up
   end
   
-  def clean_up
-    
+  def self.clean_up
+   puts "#{$output_file}"
+   $output_file.close
+  ensure
+    FileUtils.remove_entry_secure $tmpdir if !$tmpdir.nil? && Dir.exists?($tmpdir)
   end
   
 end
