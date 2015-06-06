@@ -2,6 +2,7 @@ require 'optparse'
 require 'tmpdir'
 require 'security/brakeman'
 require 'complexity/flog'
+require 'complexity/flay'
 
 class RailsScope
   
@@ -25,7 +26,7 @@ class RailsScope
   end
   
   def self.klasses
-    %w{ Brakeman Flog }
+    %w{ Brakeman Flog Flay }
   end
   
   def self.separator(tool_name='')
