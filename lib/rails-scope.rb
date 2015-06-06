@@ -4,6 +4,7 @@ require 'security/brakeman'
 require 'complexity/flog'
 require 'complexity/flay'
 require 'count/code_count'
+require 'count/gemfile'
 
 class RailsScope
   
@@ -18,6 +19,10 @@ class RailsScope
         @options[:path] = p
       end
 
+      opts.on("-o", "--path /my/dir", "The location you would like the scope.nv file stored") do |o|
+        @options[:output] = o
+      end
+
       opts.on("-h", "--help", "Displays help information") do
         puts opts 
         exit
@@ -27,7 +32,7 @@ class RailsScope
   end
   
   def self.klasses
-    %w{ Brakeman Flog Flay CodeCount }
+    %w{ Brakeman Flog Flay CodeCount Gemfile}
   end
   
   def self.separator(tool_name='')
