@@ -29,8 +29,11 @@ class RailsScope
     $tmpdir = Dir.mktmpdir
     Brakeman.kick_off
   ensure 
-    puts $tmpdir
-    #FileUtils.remove_entry dir
+    clean_up
+  end
+  
+  def clean_up
+    
   end
   
 end
