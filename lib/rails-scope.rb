@@ -28,7 +28,10 @@ class RailsScope
     $output_path = @options[:output] ? @options[:output] : Dir.pwd
     $output_file = File.new("#{$output_path}/scope.nv", "w")
     $tmpdir = Dir.mktmpdir
-    Brakeman.kick_off
+    %w{ Brakeman }.each do |klass|
+      obj = Object.const_get(klass)
+      obj.kick_off
+    end
   ensure 
     clean_up
   end
