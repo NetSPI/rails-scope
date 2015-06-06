@@ -1,4 +1,5 @@
 *.gem
+compile.sh
 *.rbc
 /.config
 /coverage/
