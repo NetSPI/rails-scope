@@ -1,6 +1,7 @@
 require 'optparse'
 require 'tmpdir'
 require 'security/brakeman'
+require 'complexity/flog'
 
 class RailsScope
   
@@ -23,12 +24,26 @@ class RailsScope
     start
   end
   
+  def self.klasses
+    %w{ Brakeman Flog }
+  end
+  
+  def self.separator(tool_name='')
+    sep = "\n"
+    sep << "=" * 15
+    sep << tool_name
+    sep << "=" * 15
+    sep << "\n\n"
+    $output_file.puts sep
+  end
+  
   def self.start
     $path   = @options[:path] ? @options[:path] : Dir.pwd
     $output_path = @options[:output] ? @options[:output] : Dir.pwd
     $output_file = File.new("#{$output_path}/scope.nv", "w")
     $tmpdir = Dir.mktmpdir
-    %w{ Brakeman }.each do |klass|
+    klasses.each do |klass|
+      separator(klass.to_s)
       obj = Object.const_get(klass)
       obj.kick_off
     end
